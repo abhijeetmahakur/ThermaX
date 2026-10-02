@@ -1,0 +1,46 @@
+name: ThermaX Build & Verification
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Validate syntax and structure
+        run: |
+          python -m py_compile main.py
+          python -m py_compile src/app.py
+
+      - name: Test PyInstaller Build
+        run: |
+          pyinstaller --noconsole --onefile --name "ThermaX" --add-data "src;src" main.py
+        shell: cmd
+
+      - name: Verify Executable Created
+        run: |
+          if (Test-Path "dist/ThermaX.exe") {
+            Write-Host "Build successful: dist/ThermaX.exe exists."
+          } else {
+            Write-Error "dist/ThermaX.exe was not created."
+            exit 1
+          }
+        shell: powershell
