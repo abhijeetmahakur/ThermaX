@@ -20,29 +20,23 @@
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
-### 1. Prerequisites
-- Python 3.8 or newer  
+### Requirements
+- Python 3.8 or newer
 - Windows 10 / 11
 
-### 2. Install Dependencies
+### Install and run
 
-```bash
-python setup.py
+```powershell
+py -3 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe main.py
 ```
 
-Or manually:
+The project also includes `test_monitors.py`, a manual hardware-dependent smoke script. It is not a platform-independent automated test suite.
 
-```bash
-pip install -r requirements.txt
-```
-
-### 3. Run ThermaX
-
-```bash
-python main.py
-```
+No packaging build or CI workflow is configured.
 
 ---
 
@@ -131,6 +125,6 @@ Right-click `main.py` → "Run as Administrator" for full access to process cont
 
 ---
 
-## 📝 License
+## License
 
-MIT — free to use, modify, and distribute.
+No project-level `LICENSE` file is present. The existing MIT statement has been removed pending confirmation of project ownership and third-party code/assets. No license is being added in this change.
